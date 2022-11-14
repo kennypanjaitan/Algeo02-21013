@@ -1,7 +1,7 @@
 import cv2
 import os
 import numpy as np
-
+from eigen import *
 def covarian(matrixMean,folder): # cari matrix covarian
     count = 0
     for filename in os.listdir(folder):
@@ -36,14 +36,15 @@ def mean(folder): # cari matrix mean
     return matrixMean
 
 # main
-foldername = 'dataset' # nama folder datasetnya
+foldername = 'dataset/105_classes_pins_dataset' # nama folder datasetnya
 count = 0
 for folder in os.listdir(foldername):
     name = foldername+"/"+folder
     matrixMean = mean(name)
     matrixCovarian = covarian(matrixMean,name)
-    # print(folder)
+    print(folder)
     print(matrixCovarian)
-    # count += 1
-    # if (count == 2):
-    #     break
+    print(eigenval(matrixCovarian))
+    count += 1
+    if (count == 2):
+        break
