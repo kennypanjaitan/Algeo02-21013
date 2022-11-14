@@ -9,6 +9,7 @@ def covarian(matrixMean,folder): # cari matrix covarian
         mat = cv2.resize(mat,(256,256))
         count += 1
         mat = mat - matrixMean
+        mat = np.abs(mat)
         if (count == 1):
             matNew = mat
         else:
