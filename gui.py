@@ -6,7 +6,7 @@ from tkinter.messagebox import showinfo
 # INIT
 main = tk.Tk()
 main.configure(background = "navy")
-main.geometry("500 x 400")
+main.geometry("500x400")
 main.resizable(False, False)
 main.title("Face Recognition")
 
