@@ -3,7 +3,8 @@ import numpy as np
 from sympy import Eq, solve, symbols, Matrix
 import sympy as sp
 
-
+lamd = symbols('λ')
+det = 0
 def eigenval(mat):
     lamd = symbols('λ')
     det = 0
@@ -33,4 +34,3 @@ def eigenval(mat):
             # for j in range(0, len(matt), 1):
             #     matAug = Matrix(np.append(matt[j], 0))
             #     print(matAug)
-        
