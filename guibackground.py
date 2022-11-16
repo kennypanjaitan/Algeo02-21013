@@ -5,7 +5,7 @@ root = tk.Tk()
 root.title('Algeo02 - KennyBisa')
 root.geometry('1000x600')
 
-background = tk.PhotoImage(file="C:/Users/eunic/Documents/Algeo02-21013/Desktop - 1.png")
+background = tk.PhotoImage(file="Desktop - 1.png")
 # apps = []
 def addApp():
     # for widget in frame.winfo_children():

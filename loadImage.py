@@ -1,7 +1,9 @@
 import cv2
 import os
 import numpy as np
-from eigen import *
+# from eigen import *
+from qrDecomposition import *
+
 def covarian(matrixMean,folder): # cari matrix covarian
     count = 0
     for filename in os.listdir(folder):
@@ -45,7 +47,10 @@ for folder in os.listdir(foldername):
     matrixCovarian = covarian(matrixMean,name)
     print(folder)
     print(matrixCovarian)
-    print(eigenval(matrixCovarian))
+    # print(eigenval(matrixCovarian))
+    val, vec = find_eig_qr(matrixCovarian)
+    print(val)
+    print(vec)
     count += 1
     if (count == 2):
         break
