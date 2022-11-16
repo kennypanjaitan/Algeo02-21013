@@ -26,30 +26,32 @@ def addApps():
 my_label = tk.Label(root, image= background)
 my_label.place(x=0, y=0,relwidth=1, relheight=1)
 
-button = Image.open('Frame.png')
+button = Image.open('button.png')
 activebutton = Image.open('Clicked.png')
-
-root.button = ImageTk.PhotoImage(button)
-root.activebutton = ImageTk.PhotoImage(activebutton)
-
-def on_enter(event):
-    openDataset.config(image=root.button)
-    openFile.config(image=root.button)
-
-def on_leave(enter):
-    openDataset.config(image=root.activebutton)
-    openFile.config(image=root.activebutton)
 
 openDataset = tk.Button(root, image=button, bd=0, command=addApps, font="Dongle")
 openDataset.place(x=34, y= 215, relx=0.01, rely=0.01)
 
 openFile = tk.Button(root, image=button, bd=0, command=addImage, font="Dongle")
 openFile.place(x=34, y= 319, relx=0.01, rely=0.01)
+    
+def bttn():
+    root.button = ImageTk.PhotoImage(button)
+    root.activebutton = ImageTk.PhotoImage(activebutton)
 
-openDataset.bind("<Enter>", on_enter)
-openDataset.bind("<Leave>", on_leave)
+    def on_enter(event):
+        openDataset.config(image=root.button)
+        openFile.config(image=root.button)
 
-openFile.bind("<Enter>", on_enter)
-openFile.bind("<Leave>", on_leave)
+    def on_leave(enter):
+        openDataset.config(image=root.activebutton)
+        openFile.config(image=root.activebutton)
+
+    openDataset.bind("<Enter>", on_enter)
+    openDataset.bind("<Leave>", on_leave)
+
+    openFile.bind("<Enter>", on_enter)
+    openFile.bind("<Leave>", on_leave)
+
 
 root.mainloop()
