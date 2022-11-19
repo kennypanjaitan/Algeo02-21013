@@ -24,7 +24,7 @@ def find_eig_qr(A):
 
     pQ = np.eye(A.shape[0])
     X=A.copy()
-    for i in range(100):
+    for i in range(1):
             Q,R = qr(X)
             pQ = pQ @ Q
             X = R @ Q
