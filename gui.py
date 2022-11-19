@@ -1,41 +1,39 @@
-# nyoba
 import tkinter as tk
-from tkinter import ttk
-from tkinter.messagebox import showinfo
+from tkinter import filedialog, Text, PhotoImage, Label
+from PIL import Image, ImageTk
+import tkinter.filedialog
 
-# INIT
-main = tk.Tk()
-main.configure(background = "navy")
-main.geometry("500x400")
-main.resizable(False, False)
-main.title("Face Recognition")
+root = tk.Tk()
+root.title('Algeo02 - KennyBisa')
+root.geometry('1000x600')
 
-# variabel
-NAMA = tk.StringVar()
+background = tk.PhotoImage(file="Desktop - 1.png")
 
-# fungsi
-def klik():
-    print("Hello, " + NAMA.get())
-    pesan = f"Semangat {NAMA.get()}!"
-    showinfo(title = "Your Name", message = pesan)
+my_label = tk.Label(root, image= background)
+my_label.place(x=0, y=0,relwidth=1, relheight=1)
 
-# GUI
-desc = ttk.Label(main, text = "Welcome to Our APP!")
+def addImage():
+    filename = tk.filedialog.askopenfilename(initialdir="/", title="Select File",
+                filetypes=(("dataset", "*.jpg"), ("Jpg Files", "*.jpg")))
+    if filename:
+        img = Image.open(filename)
+        img = img.resize((250,250), Image.ANTIALIAS)
+        img = ImageTk.PhotoImage(img)
+        e1 = tk.Label(root, image=img)
+        e1.image = img
+        e1.place(x=400, y=212)
 
-# Frame buat input
-input_frame = ttk.Frame(main)
-input_frame.pack(padx = 20, pady = 10, fill = "x", expand = True)
+def addApps():
+    filename = filedialog.askdirectory(initialdir="/", title="Select Folder",
+                filetypes=("All Folders", "*.*"))
 
-# Pesan di atas input
-input_desc = ttk.Label(input_frame, text = "Masukkan nama kalian!")
-input_desc.pack(padx = 10, pady = 10, fill = "x", expand = True)
+button = Image.open('button.png')
+activebutton = Image.open('Clicked.png')
 
-# Box input nama
-input_nama = ttk.Entry(input_frame, textvariable = NAMA)
-input_nama.pack(padx = 10, pady = 10, fill = "x", expand = True)
+openDataset = tk.Button(root, text='Choose Folder', fg="#457373", bg='#E5E5E5', bd=0, command=addApps, font="Dongle")
+openDataset.place(x=41, y= 220, relx=0.01, rely=0.01)
 
-# Tombol
-sapa = ttk.Button(input_frame, text = "Hello!", command = klik)
-sapa.pack(padx = 10, pady = 10, fill = "x")
+openFile = tk.Button(root, text='Choose File', fg='#457373', bd=0, bg='#E5E5E5', command=addImage, font="Dongle")
+openFile.place(x=50, y= 326, relx=0.01, rely=0.01)
 
-main.mainloop()
+root.mainloop()
