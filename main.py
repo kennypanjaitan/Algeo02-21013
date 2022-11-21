@@ -58,7 +58,7 @@ matCovarian = A @ (np.transpose(A))
 
 
 # mencari eigen value dan eigen vector
-val, vec = find_eig_qr(matCovarian)
+val, vec = qr_to_eig(matCovarian)
 
 
 # mencari eigen face
@@ -126,20 +126,26 @@ dist = np.zeros((1,len(img_names)))
 for i in range(len(img_names)):
     dist[0,i] = euclidean_distance(w_test[0,:],w[i,:])
     if (i == 0) :
+        max = dist[0,i]
         min = dist[0,i]
         ayey = i
     else:
         if (min > dist[0,i]):
             min = dist[0,i]
             ayey = i
-print(min)
+        if (max < dist[0,i]):
+            max = dist[0,i]
+# print(min)
 
 
 # mencari nama dengan distance minimum dan menampilkan training imagenya
 for i in range(len(img_names)):
     if (i == ayey):
-        print(img_names[i])
-        haha = np.reshape(training_img[i].astype(np.uint8),(height,width))
-        cv2.imshow('image',haha)
-        cv2.waitKey(0)
-        cv2.destroyAllWindows()
+        if (min < (1/2*(max))):
+            print(img_names[i])
+            haha = np.reshape(training_img[i].astype(np.uint8),(height,width))
+            cv2.imshow('image',haha)
+            cv2.waitKey(0)
+            cv2.destroyAllWindows()
+        else:
+            print("not found")
