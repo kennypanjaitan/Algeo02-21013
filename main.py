@@ -72,7 +72,7 @@ for i in range(len(img_names)):
 
 eigenFace = normalize_vector.copy()
 for i in range(len(img_names)):
-    eigenFace[i] = normalize_vector[len(img_names)-1-i] / euclidean_distance((vec[(len(img_names)-1)-i]),2)
+    eigenFace[i] = normalize_vector[len(img_names)-1-i] / euclidean_distance((normalize_vector[(len(img_names)-1)-i]),2)
     # haha = np.reshape(eigenFace[i].astype(np.uint8),(height,width))
     # cv2.imshow('image',haha)
     # cv2.waitKey(0)
@@ -80,14 +80,12 @@ for i in range(len(img_names)):
 
 
 # memilih eigen vector yang memiliki eigen value >= 1
-# count = 0
-# for i in range (len(val)):
-#     if (val[i] > 1):
-#         count += 1
+eigenfaces_used = 0
+for i in range (len(val)):
+    if (val[i] > 1):
+        eigenfaces_used += 1
 # print(count) = 104
 # print(len(val)) = 105
-
-eigenfaces_used = 104
 
 
 # mencari weight
