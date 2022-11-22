@@ -206,7 +206,7 @@ def eunice():
     '''_____________________________________________________________________________'''
     # if openFile:
     #     foldername = file_path_var.get()
-    # if webcam:
+    # if webcam:]
     #     foldername = 'C:/Users/eunic/Documents/Algeo02-21013/datasetcam/foto0.jpg'
     # membaca test image
     foldername = file_path_var.get()
