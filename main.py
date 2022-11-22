@@ -63,17 +63,17 @@ def training_image(folder):
 
 
     # mencari eigen face
-    normalize_vector = np.zeros((len(img_names),height*width))
-    for i in range(len(img_names)):
-        normalize_vector[i] = np.transpose(vec)[:,len(vec)-1-i] @ A
+    normalize_vector = np.zeros((height*width,len(img_names)))
+    normalize_vector = A.transpose() @ vec
         # haha = np.reshape(eigenFace[i+1].astype(np.uint8),(height,width))
         # cv2.imshow('image',haha)
         # cv2.waitKey(0)
         # cv2.destroyAllWindows()
 
+    normalize_vector = normalize_vector.transpose()
     eigenFace = normalize_vector.copy()
     for i in range(len(img_names)):
-        eigenFace[i] = normalize_vector[len(img_names)-1-i] / euclidean_distance((normalize_vector[(len(img_names)-1)-i]),2)
+        eigenFace[i] = np.divide(normalize_vector[i],euclidean_distance((normalize_vector[i]),2))
         # haha = np.reshape(eigenFace[i].astype(np.uint8),(height,width))
         # cv2.imshow('image',haha)
         # cv2.waitKey(0)
@@ -82,9 +82,17 @@ def training_image(folder):
 
     # memilih eigen vector yang memiliki eigen value >= 1
     eigenfaces_used = 0
+    # for i in range (len(val)):
+    #     if (val[i] > 1):
+    #         eigenfaces_used += 1
+    eigsum = np.sum(val)
+    csum = 0
     for i in range (len(val)):
-        if (val[i] > 1):
-            eigenfaces_used += 1
+        csum = csum + val[i]
+        tv = csum / eigsum
+        if tv > 0.95:
+            eigenfaces_used = i
+            break
     # print(count) = 104
     # print(len(val)) = 105
 
@@ -107,14 +115,14 @@ def test_image(folder, w, matMean, eigenfaces_used, eigenFace, img_names, traini
     
     # membaca test image
     # foldername = 'testcase/Dwayne Johnson99_1699.jpg'
-    img = cv2.imread(os.path.join(foldername),0)
+    img = cv2.imread(os.path.join(folder),0)
     img = cv2.resize(img,(width,height))
     test_img = img.reshape(1,height*width)
 
 
     # menghitung selisih  / normalize vector
     normalize_test_img = np.subtract(test_img,matMean)
-    # haha = np.reshape(normalize_uface_vector.astype(np.uint8),(height,width))
+    # haha = np.reshape(normalize_test_img.astype(np.uint8),(height,width))
     # cv2.imshow('image',haha)
     # cv2.waitKey(0)
     # cv2.destroyAllWindows()
@@ -141,7 +149,7 @@ def test_image(folder, w, matMean, eigenfaces_used, eigenFace, img_names, traini
                 ayey = i
             if (max < dist[0,i]):
                 max = dist[0,i]
-    # print(min)
+    print(min)
 
 
     # mencari nama dengan distance minimum dan menampilkan training imagenya
